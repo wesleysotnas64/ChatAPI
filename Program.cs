@@ -2,33 +2,33 @@ using ChatAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Configuração de CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
         policy
-        .AllowAnyOrigin()
-        .AllowAnyHeader()
-        .AllowAnyMethod();
+            .WithOrigins("http://localhost:5173") // apenas essa origem
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // Permite envio de cookies/autenticação
     });
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+// IMPORTANTE: UseCors deve vir antes dos endpoints
 app.UseCors();
 
 app.UseHttpsRedirection();
