@@ -8,7 +8,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy
-            .WithOrigins("https://minichat-portfolio.netlify.app/") // apenas essa origem
+            .WithOrigins("https://minichat-portfolio.netlify.app") // apenas essa origem
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials(); // Permite envio de cookies/autenticação
