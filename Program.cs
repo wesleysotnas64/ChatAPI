@@ -8,9 +8,10 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy
-            .WithOrigins("https://minichat-portfolio.netlify.app") 
+            .WithOrigins("http://localhost:5173") // apenas essa origem
+            .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials(); 
+            .AllowCredentials(); // Permite envio de cookies/autenticação
     });
 });
 
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// IMPORTANTE: UseCors deve vir antes dos endpoints
 app.UseCors();
 
 app.UseHttpsRedirection();
